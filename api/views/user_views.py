@@ -5,19 +5,15 @@ from rest_framework.exceptions import PermissionDenied
 from rest_framework import status, generics
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import get_user, authenticate, login, logout
-
 from ..serializers import UserSerializer, UserRegisterSerializer,  ChangePasswordSerializer
 from ..models.user import User
-
 class SignUp(generics.CreateAPIView):
     # Override the authentication/permissions classes so this endpoint
     # is not authenticated & we don't need any permissions to access it.
     authentication_classes = ()
     permission_classes = ()
-
     # Serializer classes are required for endpoints that create data
     serializer_class = UserRegisterSerializer
-
     def post(self, request):
         # Pass the request data to the serializer to validate it
         user = UserRegisterSerializer(data=request.data['credentials'])
@@ -25,7 +21,6 @@ class SignUp(generics.CreateAPIView):
         if user.is_valid():
             # Actually create the user using the UserSerializer (the `create` method defined there)
             created_user = UserSerializer(data=user.data)
-
             if created_user.is_valid():
                 # Save the user and send back a response!
                 created_user.save()
@@ -34,16 +29,13 @@ class SignUp(generics.CreateAPIView):
                 return Response(created_user.errors, status=status.HTTP_400_BAD_REQUEST)
         else:
             return Response(user.errors, status=status.HTTP_400_BAD_REQUEST)
-
 class SignIn(generics.CreateAPIView):
     # Override the authentication/permissions classes so this endpoint
     # is not authenticated & we don't need any permissions to access it.
     authentication_classes = ()
     permission_classes = ()
-
     # Serializer classes are required for endpoints that create data
     serializer_class = UserSerializer
-
     def post(self, request):
         creds = request.data['credentials']
         print(creds)
@@ -69,7 +61,6 @@ class SignIn(generics.CreateAPIView):
                 return Response({ 'msg': 'The account is inactive.' }, status=status.HTTP_400_BAD_REQUEST)
         else:
             return Response({ 'msg': 'The username and/or password is incorrect.' }, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
-
 class SignOut(generics.DestroyAPIView):
     def delete(self, request):
         # Remove this token from the user
@@ -77,7 +68,6 @@ class SignOut(generics.DestroyAPIView):
         # Logout will remove all session data
         logout(request)
         return Response(status=status.HTTP_204_NO_CONTENT)
-
 class ChangePassword(generics.UpdateAPIView):
     def partial_update(self, request):
         user = request.user
@@ -88,12 +78,9 @@ class ChangePassword(generics.UpdateAPIView):
             # https://docs.djangoproject.com/en/3.1/ref/contrib/auth/#django.contrib.auth.models.User.check_password
             if not user.check_password(serializer.data['old']):
                 return Response({ 'msg': 'Wrong password' }, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
-
             # set_password will also hash the password
             # https://docs.djangoproject.com/en/3.1/ref/contrib/auth/#django.contrib.auth.models.User.set_password
             user.set_password(serializer.data['new'])
             user.save()
-
             return Response(status=status.HTTP_204_NO_CONTENT)
-
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

@@ -1,2 +1,2 @@
-DROP DATABASE IF EXISTS snake-2-api;
-CREATE DATABASE snake-2-api;
+DROP DATABASE IF EXISTS snake_2_api;
+CREATE DATABASE snake_2_api;
