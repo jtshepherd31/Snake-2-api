@@ -4,7 +4,7 @@
 
 This template contains a project, `snake-2-api`, and an app, `api`,
 which are set up complete with user authentication and an example resource,
-`Mango`, which has an example user ownership implementation.
+`Highscore`, which has an example user ownership implementation.
 
 ## Preparation
 
@@ -146,7 +146,7 @@ When sending data with AJAX, we must stringify it with `JSON.stringify`. See the
 ```js
 const create = function (data) {
   return $.ajax({
-    url: config.apiUrl + '/mangos/',
+    url: config.apiUrl + '/highscores/',
     method: 'POST',
     headers: {
       Authorization: 'Token ' + store.user.token
@@ -170,7 +170,7 @@ import json
 
 ....
 
-class Mangos(APIView):
+class Highscores(APIView):
     def post(self, request):
         # Create variable to store readable JSON data
         data = json.loads(request.body)

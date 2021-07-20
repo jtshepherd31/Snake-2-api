@@ -1,15 +1,13 @@
-#!/bin/bash
 
-curl "http://localhost:8000/highscores/" \
+curl "http://localhost:8000/highscore/" \
   --include \
   --request POST \
   --header "Content-Type: application/json" \
   --header "Authorization: Token ${TOKEN}" \
   --data '{
     "highscore": {
-      "name": "'"${NAME}"'",
-      "color": "'"${COLOR}"'",
-      "ripe": "'"${RIPE}"'"
+      "email": "'"${EMAIL}"'",
+      "score": "'"${SCORE}"'"
     }
   }'
 
