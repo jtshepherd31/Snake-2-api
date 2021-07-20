@@ -7,9 +7,8 @@ curl "http://localhost:8000/highscores/${ID}/" \
   --header "Authorization: Token ${TOKEN}" \
   --data '{
     "highscore": {
-      "name": "'"${NAME}"'",
-      "color": "'"${COLOR}"'",
-      "ripe": "'"${RIPE}"'"
+      "email": "'"${EMAIL}"'",
+      "score": "'"${SCORE}"'"
     }
   }'
 

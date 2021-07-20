@@ -1,5 +1,4 @@
-
-curl "http://localhost:8000/highscore/" \
+curl "http://localhost:8000/highscores/" \
   --include \
   --request POST \
   --header "Content-Type: application/json" \
