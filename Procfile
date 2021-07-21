@@ -1,2 +1,2 @@
-web: gunicorn snake_2_api.wsgi
+web: gunicorn snake-2-api.wsgi
 release: python manage.py migrate
