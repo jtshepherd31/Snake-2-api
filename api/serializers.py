@@ -7,7 +7,7 @@ from .models.user import User
 class HighscoreSerializer(serializers.ModelSerializer):
     class Meta:
         model = Highscore
-        fields = ('email', 'score')
+        fields = ('id', 'email', 'score', 'owner')
 
 class UserSerializer(serializers.ModelSerializer):
     # This model serializer will be used for User creation

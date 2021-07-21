@@ -1,4 +1,4 @@
-# from rest_framework.views import APIView
+from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.exceptions import PermissionDenied
@@ -7,6 +7,7 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth import get_user, authenticate, login, logout
 from ..serializers import UserSerializer, UserRegisterSerializer,  ChangePasswordSerializer
 from ..models.user import User
+
 class SignUp(generics.CreateAPIView):
     # Override the authentication/permissions classes so this endpoint
     # is not authenticated & we don't need any permissions to access it.
@@ -14,6 +15,7 @@ class SignUp(generics.CreateAPIView):
     permission_classes = ()
     # Serializer classes are required for endpoints that create data
     serializer_class = UserRegisterSerializer
+
     def post(self, request):
         # Pass the request data to the serializer to validate it
         user = UserRegisterSerializer(data=request.data['credentials'])
@@ -36,6 +38,7 @@ class SignIn(generics.CreateAPIView):
     permission_classes = ()
     # Serializer classes are required for endpoints that create data
     serializer_class = UserSerializer
+
     def post(self, request):
         creds = request.data['credentials']
         print(creds)
@@ -68,6 +71,7 @@ class SignOut(generics.DestroyAPIView):
         # Logout will remove all session data
         logout(request)
         return Response(status=status.HTTP_204_NO_CONTENT)
+
 class ChangePassword(generics.UpdateAPIView):
     def partial_update(self, request):
         user = request.user
