@@ -53,4 +53,4 @@ METHODS -- GET POST PATCH DELETE PATHS -- highscores
 
 
 ### ERD -
-![ERD Link](https://imgur.com/2SwBnKd)
+![ERD Link](https://i.imgur.com/2SwBnKd.png)
