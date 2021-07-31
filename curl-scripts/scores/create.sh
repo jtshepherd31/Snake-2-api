@@ -5,7 +5,7 @@ curl "http://localhost:8000/highscores/" \
   --header "Authorization: Bearer ${TOKEN}" \
   --data '{
     "highscore": {
-      "id": "'"${ID}"'",
+      "owner": "'"${OWNER}"'",
       "email": "'"${EMAIL}"'",
       "score": "'"${SCORE}"'"
     }
